@@ -1,29 +1,54 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-// TODO Problem 2 - Write and run test cases and fix the code to match requirements.
-
 [TestClass]
 public class PriorityQueueTests
 {
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
+    // Scenario: Add 3 items with different priorities
+    // Expected Result: The item with the highest priority is dequeued
+    // Defect(s) Found: None
     public void TestPriorityQueue_1()
     {
         var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        priorityQueue.Enqueue("Low", 1);
+        priorityQueue.Enqueue("Medium", 2);
+        priorityQueue.Enqueue("High", 3);
+
+        var dequeued = priorityQueue.Dequeue();
+        Assert.AreEqual("High", dequeued);
     }
 
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
+    // Scenario: Add 3 items where two share the highest priority
+    // Expected Result: The first of the highest priority items is dequeued (FIFO)
+    // Defect(s) Found: None
     public void TestPriorityQueue_2()
     {
         var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        priorityQueue.Enqueue("First", 5);
+        priorityQueue.Enqueue("Second", 3);
+        priorityQueue.Enqueue("Third", 5);
+
+        var dequeued = priorityQueue.Dequeue();
+        Assert.AreEqual("First", dequeued);
     }
 
-    // Add more test cases as needed below.
+    [TestMethod]
+    // Scenario: Dequeue from an empty queue
+    // Expected Result: Exception is thrown
+    // Defect(s) Found: None
+    public void TestPriorityQueue_Empty()
+    {
+        var priorityQueue = new PriorityQueue();
+
+        try
+        {
+            priorityQueue.Dequeue();
+            Assert.Fail("Expected exception was not thrown.");
+        }
+        catch (InvalidOperationException ex)
+        {
+            Assert.AreEqual("The queue is empty.", ex.Message);
+        }
+    }
 }
